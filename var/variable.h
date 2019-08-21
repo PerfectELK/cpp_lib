@@ -13,7 +13,7 @@ namespace pelk{
 
 
 
-    class variable {
+    class var {
     private:
 
         union Value{
@@ -21,38 +21,36 @@ namespace pelk{
             long Long;
             string *String;
             Value(){};
-            ~Value(){
-                delete String;
-            };
+            ~Value(){};
         } val;
-
-        string type;
 
     public:
 
-        variable(int V){
+        string type;
+
+        var(int V){
             this->type = "integer";
             this->val.Int = V;
         }
 
-        variable(long V){
+        var(long V){
             this->type = "long";
             this->val.Long = V;
         }
 
-        variable(string V){
+        var(string V){
             this->type = "string";
-            this->val.String = &V;
+            string *str = new string(V);
+            this->val.String = str;
         }
 
-        variable(char V[]){
+        var(char V[]){
             this->type = "string";
             auto *s = new string(V);
             this->val.String = s;
         }
 
-        ~variable(){
-        }
+        ~var(){}
 
 
         void setVariable(int V){
@@ -77,23 +75,39 @@ namespace pelk{
 
         operator string(){ return *(this->val.String);}
 
-        variable& operator=(variable& v){
-            val = v.val;
-            return *this;
+//        var& operator=(var& v){
+//            this->val = v.val;
+//            return *this;
+//        }
+
+        friend ostream& operator<<(ostream& out, var& V){
+            if(V.type == "string"){
+                if(V.val.String == nullptr){
+                    return out;
+                }
+                out << *V.val.String;
+            }else if(V.type == "integer"){
+                out << (int) V;
+            }else if(V.type == "long"){
+                out << (long) V;
+            }
+            return out;
         }
 
-        friend ostream& operator<<(ostream& out, variable& V){
-            if(V.type == "string"){
-                cout << *V.val.String;
-            }else if(V.type == "integer"){
-                cout << (int) V;
-            }else if(V.type == "long"){
-                cout << (long) V;
-            }
+        friend istream& operator>>(istream &in, var& V){
+
+            auto *S = new string();
+            in  >> *S;
+            V.type = "string";
+            V.val.String = S;
+
+            return in;
         }
+
 
 
     };
+
 
 
 }
