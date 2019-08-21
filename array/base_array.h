@@ -1,5 +1,6 @@
 #include "./../var/variable.h"
 #include <iostream>
+#include <cstring>
 
 #ifndef EXAMPLE_BASE_ARRAY_H
 #define EXAMPLE_BASE_ARRAY_H
@@ -12,18 +13,15 @@ namespace pelk{
 
     private:
 
-        int count;
+
 
     public:
 
-        var *array[0];
+        var **array = new var*[0];
         int length = 0;
 
 
-        base_array(){
-
-            this->count = 0;
-        }
+        base_array(){}
 
         ~base_array(){}
 
@@ -33,12 +31,17 @@ namespace pelk{
 
             var *arr[this->length];
             for(int i = 0; i < old_count; i++){
-                cout << this->array[i] << endl;
-                //*arr[i] = this->array[i];
+                arr[i] = this->array[i];
             }
 
-            arr[this->count - 1] = &item;
+            arr[this->length - 1] = &item;
 
+            delete[] this->array;
+            array = nullptr;
+            array = new var*[this->length];
+            for(int j = 0; j < this->length; j++){
+                array[j] = arr[j];
+            }
 
         }
 
@@ -46,7 +49,7 @@ namespace pelk{
 
         }
 
-        void set(var item){
+        void set(var index, var item){
 
         }
 

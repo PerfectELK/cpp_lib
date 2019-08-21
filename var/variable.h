@@ -18,11 +18,28 @@ namespace pelk{
 
         union Value{
             int Int;
-            long Long;
+            long long int Long;
+            float Float;
+            long double DoubleLong;
             string *String;
             Value(){};
             ~Value(){};
         } val;
+
+        var getCurrentValue(){
+            if(this->type == "integer"){
+                return this->val.Int;
+            }else if(this->type == "long"){
+                return this->val.Long;
+            }else if(this->type == "float"){
+                return this->val.Float;
+            }else if(this->type == "double"){
+                return this->val.DoubleLong;
+            }else if(this->type == "string"){
+                return *(this->val.String);
+            }
+            return false;
+        }
 
     public:
 
@@ -33,7 +50,7 @@ namespace pelk{
             this->val.Int = V;
         }
 
-        var(long V){
+        var(long long int V){
             this->type = "long";
             this->val.Long = V;
         }
@@ -50,35 +67,59 @@ namespace pelk{
             this->val.String = s;
         }
 
+        var(float V){
+            this->type = "float";
+            this->val.Float = V;
+        }
+
+        var(long double V){
+            this->type = "double";
+            this->val.DoubleLong = V;
+        }
+
+
+
         ~var(){}
 
 
-        void setVariable(int V){
-            this->type = "integer";
-            this->val.Int = V;
+        operator int(){return this->val.Int;}
+
+        operator long(){return this->val.Long;}
+
+        operator long long int(){return this->val.Long;}
+
+        operator float(){return this->val.Float;}
+
+        operator double long(){return this->val.DoubleLong;}
+
+        operator double(){return this->val.DoubleLong;}
+
+        operator string(){return *(this->val.String);}
+
+
+        friend bool operator==(var& V, var&v){
+            return (double long) V.getCurrentValue() == (double long) v.getCurrentValue();
         }
 
-        void setVariable(long V){
-            this->type = "long";
-            this->val.Long = V;
+        friend bool operator!=(var& V, var&v){
+
         }
 
-        void setVariable(string V){
-            this->type = "string";
-            this->val.String = &V;
+        friend bool operator<=(var& V, var&v){
+
         }
 
+        friend bool operator>=(var& V, var&v){
 
-        operator int(){ return this->val.Int;}
+        }
 
-        operator long(){ return this->val.Long;}
+        friend bool operator<(var& V, var&v){
 
-        operator string(){ return *(this->val.String);}
+        }
 
-//        var& operator=(var& v){
-//            this->val = v.val;
-//            return *this;
-//        }
+        friend bool operator>(var& V, var&v){
+
+        }
 
         friend ostream& operator<<(ostream& out, var& V){
             if(V.type == "string"){
@@ -106,12 +147,13 @@ namespace pelk{
 
 
 
+
+
     };
 
 
 
 }
-
 
 
 #endif //EXAMPLE_PELK_H
