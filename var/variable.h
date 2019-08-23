@@ -97,6 +97,7 @@ namespace pelk{
         operator string(){return *(this->val.String);}
 
 
+
         friend bool operator==(var& V, var&v){
             return (double long) V.getCurrentValue() == (double long) v.getCurrentValue();
         }
