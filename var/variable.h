@@ -103,23 +103,33 @@ namespace pelk{
         }
 
         friend bool operator!=(var& V, var&v){
-
+            return (double long) V.getCurrentValue() != (double long) v.getCurrentValue();
         }
 
         friend bool operator<=(var& V, var&v){
-
+            return (double long) V.getCurrentValue() <= (double long) v.getCurrentValue();
         }
 
         friend bool operator>=(var& V, var&v){
-
+            return (double long) V.getCurrentValue() >= (double long) v.getCurrentValue();
         }
 
         friend bool operator<(var& V, var&v){
-
+            return (double long) V.getCurrentValue() < (double long) v.getCurrentValue();
         }
 
         friend bool operator>(var& V, var&v){
+            return (double long) V.getCurrentValue() > (double long) v.getCurrentValue();
+        }
 
+        friend var& operator+(var &V, var &v){
+
+             return ((double long) V + (double long) v);
+        }
+
+        friend var& operator++(var& V){
+             var v = 1;
+             return V + v;
         }
 
         friend ostream& operator<<(ostream& out, var& V){
