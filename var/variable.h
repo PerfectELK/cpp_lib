@@ -16,10 +16,56 @@ namespace pelk{
     class var {
     private:
 
+        int Int(){
+            return this->val.Int;
+        }
 
+        long long int Lli(){
+            return this->val.Long;
+        }
+
+        float Float(){
+            return this->val.Float;
+        }
+
+        long double longDouble(){
+            return this->val.DoubleLong;
+        }
+
+        string String(){
+            return *this->val.String;
+        }
+
+        bool calculatble(var &V){
+            if(this->type == "string" && V.type == "string"){
+                return true;
+            }else if(this->type == "string" || V.type == "string"){
+                return false;
+            }
+            return true;
+        }
+
+
+        long double getVal(){
+
+            if(this->type == "string"){
+                return false;
+            }else if(this->type == "integer"){
+                return this->val.Int;
+            }else if(this->type == "float"){
+                return this->val.Float;
+            }else if(this->type == "double"){
+                return this->val.DoubleLong;
+            }else if(this->type == "long"){
+                return this->val.Long;
+            }
+
+        }
 
 
     public:
+
+
 
         union Value{
             int Int;
@@ -70,6 +116,10 @@ namespace pelk{
             this->val.DoubleLong = V;
         }
 
+        var(){
+            this->type = "empty";
+        }
+
 
 
         ~var(){}
@@ -116,8 +166,20 @@ namespace pelk{
         }
 
         var& operator+(var &V){
-            this->val.Int = V.val.Int + this->val.Int;
-            return *this;
+            if(this->calculatble(V)){
+                if (!this->getVal() && !V.getVal()){
+                    string *str = new string();
+                    *str = this->String() + V.String();
+                    this->val.String = str;
+                    return *this;
+                }else{
+                    *this = this->getVal() + V.getVal();
+                    return *this;
+                }
+            }else {
+                cerr << "Dues not calculatble types" << endl;
+                exit(10);
+            }
         }
 
         var& operator++(){
@@ -134,6 +196,10 @@ namespace pelk{
                 out << (int) V;
             }else if(V.type == "long"){
                 out << (long) V;
+            }else if(V.type == "double"){
+                out << (double long) V;
+            }else if(V.type == "float"){
+                out << (float) V;
             }
             return out;
         }
@@ -147,10 +213,6 @@ namespace pelk{
 
             return in;
         }
-
-
-
-
 
     };
 
