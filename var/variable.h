@@ -16,6 +16,11 @@ namespace pelk{
     class var {
     private:
 
+
+
+
+    public:
+
         union Value{
             int Int;
             long long int Long;
@@ -25,23 +30,6 @@ namespace pelk{
             Value(){};
             ~Value(){};
         } val;
-
-        var getCurrentValue(){
-            if(this->type == "integer"){
-                return this->val.Int;
-            }else if(this->type == "long"){
-                return this->val.Long;
-            }else if(this->type == "float"){
-                return this->val.Float;
-            }else if(this->type == "double"){
-                return this->val.DoubleLong;
-            }else if(this->type == "string"){
-                return *(this->val.String);
-            }
-            return false;
-        }
-
-    public:
 
         string type;
 
@@ -77,6 +65,11 @@ namespace pelk{
             this->val.DoubleLong = V;
         }
 
+        var(double V){
+            this->type = "double";
+            this->val.DoubleLong = V;
+        }
+
 
 
         ~var(){}
@@ -99,37 +92,36 @@ namespace pelk{
 
 
         friend bool operator==(var& V, var&v){
-            return (double long) V.getCurrentValue() == (double long) v.getCurrentValue();
+
         }
 
         friend bool operator!=(var& V, var&v){
-            return (double long) V.getCurrentValue() != (double long) v.getCurrentValue();
+
         }
 
         friend bool operator<=(var& V, var&v){
-            return (double long) V.getCurrentValue() <= (double long) v.getCurrentValue();
+
         }
 
         friend bool operator>=(var& V, var&v){
-            return (double long) V.getCurrentValue() >= (double long) v.getCurrentValue();
+
         }
 
         friend bool operator<(var& V, var&v){
-            return (double long) V.getCurrentValue() < (double long) v.getCurrentValue();
+
         }
 
         friend bool operator>(var& V, var&v){
-            return (double long) V.getCurrentValue() > (double long) v.getCurrentValue();
+
         }
 
-        friend var& operator+(var &V, var &v){
-
-             return ((double long) V + (double long) v);
+        var& operator+(var &V){
+            this->val.Int = V.val.Int + this->val.Int;
+            return *this;
         }
 
-        friend var& operator++(var& V){
-             var v = 1;
-             return V + v;
+        var& operator++(){
+
         }
 
         friend ostream& operator<<(ostream& out, var& V){
