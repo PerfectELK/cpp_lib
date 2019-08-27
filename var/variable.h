@@ -142,32 +142,50 @@ namespace pelk{
 
 
         friend bool operator==(var& V, var&v){
-
+            if((V - v).getVal() == 0){
+                return true;
+            }
+            return false;
         }
 
         friend bool operator!=(var& V, var&v){
-
+            if((V - v).getVal() != 0){
+                return true;
+            }
+            return false;
         }
 
         friend bool operator<=(var& V, var&v){
-
+            if((V - v).getVal() > 0){
+                return false;
+            }
+            return true;
         }
 
         friend bool operator>=(var& V, var&v){
-
+            if((V - v).getVal() >= 0){
+                return true;
+            }
+            return false;
         }
 
         friend bool operator<(var& V, var&v){
-
+            if((V - v).getVal() >= 0){
+                return false;
+            }
+            return true;
         }
 
         friend bool operator>(var& V, var&v){
-
+            if((V - v).getVal() > 0){
+                return true;
+            }
+            return false;
         }
 
         var& operator+(var &V){
             if(this->calculatble(V)){
-                if (!this->getVal() && !V.getVal()){
+                if (this->type == "string" && V.type == "string"){
                     string *str = new string();
                     *str = this->String() + V.String();
                     this->val.String = str;
@@ -182,8 +200,82 @@ namespace pelk{
             }
         }
 
-        var& operator++(){
+        var& operator-(var &V){
+            if(this->calculatble(V)){
+                if (this->type == "string" && V.type == "string"){
+                    cerr << "Dues not calculatble types" << endl;
+                    exit(10);
+                }else{
+                    *this = this->getVal() - V.getVal();
+                    return *this;
+                }
+            }else {
+                cerr << "Dues not calculatble types" << endl;
+                exit(10);
+            }
+        }
 
+
+
+        var operator++(int V){
+            if(this->calculatble(*this)){
+                if (this->type == "string"){
+                    cerr << "Increment does not possible" << endl;
+                    exit(10);
+                }else{
+                    *this = this->getVal() + 1;
+                    return *this;
+                }
+            }else {
+                cerr << "Increment does not possible" << endl;
+                exit(10);
+            }
+        }
+
+        var& operator++(){
+            if(this->calculatble(*this)){
+                if (this->type == "string"){
+                    cerr << "Increment does not possible" << endl;
+                    exit(10);
+                }else{
+                    *this = this->getVal() + 1;
+                    return *this;
+                }
+            }else {
+                cerr << "Increment does not possible" << endl;
+                exit(10);
+            }
+        }
+
+
+        var operator--(int V){
+            if(this->calculatble(*this)){
+                if (this->type == "string"){
+                    cerr << "Decrement does not possible" << endl;
+                    exit(10);
+                }else{
+                    *this = this->getVal() - 1;
+                    return *this;
+                }
+            }else {
+                cerr << "Decrement does not possible" << endl;
+                exit(10);
+            }
+        }
+
+        var& operator--(){
+            if(this->calculatble(*this)){
+                if (this->type == "string"){
+                    cerr << "Decrement does not possible" << endl;
+                    exit(10);
+                }else{
+                    *this = this->getVal() - 1;
+                    return *this;
+                }
+            }else {
+                cerr << "Decrement does not possible" << endl;
+                exit(10);
+            }
         }
 
         friend ostream& operator<<(ostream& out, var& V){
