@@ -1,6 +1,6 @@
-#include "./../var/variable.h"
 #include <iostream>
 #include <cstring>
+#include "./../var/variable.h"
 
 #ifndef EXAMPLE_BASE_ARRAY_H
 #define EXAMPLE_BASE_ARRAY_H
@@ -8,6 +8,7 @@
 namespace pelk{
 
     using namespace std;
+
 
     class base_array {
 
@@ -60,10 +61,9 @@ namespace pelk{
 
         }
 
-        void each(void (*f_ptr)(var index, var item)){
+        void each(void (*f_ptr)(var index, var item, var someData), var someData = false){
             for(int i = 0; i < this->length; i++){
-                cout << this->array[i] << endl;
-                //(*f_ptr)(i, *this->array[i]);
+                (*f_ptr)(i, this->array[i], someData);
             }
         }
 

@@ -4,13 +4,13 @@
 #include <string>
 #include <iostream>
 
+
 #ifndef EXAMPLE_PELK_H
 #define EXAMPLE_PELK_H
 
 using namespace std;
 
 namespace pelk{
-
 
 
     class var {
@@ -62,11 +62,6 @@ namespace pelk{
 
         }
 
-
-    public:
-
-
-
         union Value{
             int Int;
             long long int Long;
@@ -77,6 +72,10 @@ namespace pelk{
             ~Value(){};
         } val;
 
+    public:
+
+
+
         string type;
 
         var(int V){
@@ -85,6 +84,11 @@ namespace pelk{
         }
 
         var(long long int V){
+            this->type = "long";
+            this->val.Long = V;
+        }
+
+        var (long V){
             this->type = "long";
             this->val.Long = V;
         }
@@ -116,9 +120,11 @@ namespace pelk{
             this->val.DoubleLong = V;
         }
 
+
         var(){
             this->type = "empty";
         }
+
 
 
 
@@ -142,6 +148,12 @@ namespace pelk{
 
 
         friend bool operator==(var& V, var&v){
+            if (v.type == "string" && V.type == "string"){
+                if((string) V == (string) v){
+                    return true;
+                }
+                return false;
+            }
             if((V - v).getVal() == 0){
                 return true;
             }
@@ -277,6 +289,38 @@ namespace pelk{
                 exit(10);
             }
         }
+
+
+        var& operator/(var& V){
+            if(this->calculatble(V)){
+                if (this->type == "string" && V.type == "string"){
+                    cerr << "Dues not calculatble types" << endl;
+                    exit(10);
+                }else{
+                    *this = this->getVal() / V.getVal();
+                    return *this;
+                }
+            }else {
+                cerr << "Dues not calculatble types" << endl;
+                exit(10);
+            }
+        }
+
+        var& operator*(var& V){
+            if(this->calculatble(V)){
+                if (this->type == "string" && V.type == "string"){
+                    cerr << "Dues not calculatble types" << endl;
+                    exit(10);
+                }else{
+                    *this = this->getVal() * V.getVal();
+                    return *this;
+                }
+            }else {
+                cerr << "Dues not calculatble types" << endl;
+                exit(10);
+            }
+        }
+
 
         friend ostream& operator<<(ostream& out, var& V){
             if(V.type == "string"){
