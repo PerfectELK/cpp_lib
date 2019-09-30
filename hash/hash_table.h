@@ -35,9 +35,6 @@ namespace pelk{
             this->arr->add(value);
         }
 
-        var& get(var key){
-            this->keys->each();
-        }
 
         ~hash_table(){
             delete arr;
