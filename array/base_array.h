@@ -38,12 +38,16 @@ namespace pelk {
     public:
 
         var *array;
-        int length = 0;
+        int length;
 
 
-        base_array() {}
+        base_array() {
+            this->length = 0;
+        }
 
-        ~base_array() {}
+        ~base_array() {
+            this->destroy_arr(this->array, this->length);
+        }
 
         void add(var item) {
 
@@ -154,9 +158,9 @@ namespace pelk {
             }
         }
 
-        var *get(int index) {
+        var get(int index) {
             if (index < this->length && this->length != 0) {
-                return &this->array[index];
+                return this->array[index];
             } else {
                 cerr << "Index out of range" << endl;
                 exit(10);
