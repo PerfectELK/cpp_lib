@@ -158,7 +158,7 @@ namespace pelk {
             }
         }
 
-        var get(int index) {
+        var& get(int index) {
             if (index < this->length && this->length != 0) {
                 return this->array[index];
             } else {

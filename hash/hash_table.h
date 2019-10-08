@@ -15,11 +15,6 @@ namespace pelk{
         base_array *arr;
         base_array *keys;
 
-        static void eachKeyCompare(var index, var item, var someData, hash_table &ctx){
-            if(item == someData){
-                ctx.compare_index = index;
-            }
-        }
 
         int compare_index;
 
@@ -33,6 +28,34 @@ namespace pelk{
         void put(var key, var value){
             this->keys->add(key);
             this->arr->add(value);
+        }
+
+        void remove(var key){
+            int index = this->keys->search(key);
+            if(index != -1){
+                this->keys->remove(index);
+                this->arr->remove(index);
+            }
+        }
+
+        void removeAll(var key){
+            base_array indexes = this->keys->searchAll(key);
+            if(indexes.length > 0){
+                for(int i = 0; i <= indexes.length; i++){
+                    var index = indexes.get(i);
+                    this->keys->remove(index);
+                    this->arr->remove(index);
+                }
+            }
+        }
+
+        void var_dump(){
+            for(int i = 0; i < this->keys->length; i++){
+                cout << "--";
+                cout << this->keys->get(i);
+                cout << "-->";
+                cout << this->arr->get(i) << endl;
+            }
         }
 
 
