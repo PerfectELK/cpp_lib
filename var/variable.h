@@ -1,16 +1,19 @@
-//
-// Created by pelk on 20.08.2019.
-//
 #include <string>
 #include <iostream>
 
 
-#ifndef EXAMPLE_PELK_H
-#define EXAMPLE_PELK_H
+#ifndef variable_h
+#define variable_h
+
 
 using namespace std;
 
+
+
 namespace pelk{
+
+    class base_array;
+    class hash_table;
 
 
     class var {
@@ -62,19 +65,20 @@ namespace pelk{
 
         }
 
-        union Value{
+
+    public:
+
+        union Value {
             int Int;
             long long int Long;
             float Float;
             long double DoubleLong;
             string *String;
+            base_array *Array;
+            hash_table *HashTable;
             Value(){};
             ~Value(){};
         } val;
-
-    public:
-
-
 
         string type;
 
@@ -120,12 +124,21 @@ namespace pelk{
             this->val.DoubleLong = V;
         }
 
+        var(base_array* V){
+            this->type = "array";
+            this->val.Array = V;
+        }
+
+        var(hash_table* V){
+            this->type = "hash_table";
+            this->val.HashTable = V;
+        }
+
+        var(hash_table);
 
         var(){
             this->type = "empty";
         }
-
-
 
 
         ~var(){}
@@ -145,6 +158,11 @@ namespace pelk{
 
         operator string(){return *(this->val.String);}
 
+        operator base_array*(){ return this->val.Array; }
+
+        operator hash_table*(){ return this->val.HashTable; }
+
+        operator hash_table();
 
 
         friend bool operator==(var& V, var&v){
@@ -322,23 +340,23 @@ namespace pelk{
         }
 
 
-        friend ostream& operator<<(ostream& out, var& V){
-            if(V.type == "string"){
-                if(V.val.String == nullptr){
-                    return out;
-                }
-                out << *V.val.String;
-            }else if(V.type == "integer"){
-                out << (int) V;
-            }else if(V.type == "long"){
-                out << (long) V;
-            }else if(V.type == "double"){
-                out << (double long) V;
-            }else if(V.type == "float"){
-                out << (float) V;
-            }
-            return out;
-        }
+        friend ostream& operator<<(ostream& out, var& V);
+//            if(V.type == "string"){
+//                if(V.val.String == nullptr){
+//                    return out;
+//                }
+//                out << *V.val.String;
+//            }else if(V.type == "integer"){
+//                out << (int) V;
+//            }else if(V.type == "long"){
+//                out << (long) V;
+//            }else if(V.type == "double"){
+//                out << (double long) V;
+//            }else if(V.type == "float") {
+//                out << (float) V;
+//            }
+//            return out;
+//        }
 
         friend istream& operator>>(istream &in, var& V){
 
@@ -355,5 +373,4 @@ namespace pelk{
 
 }
 
-
-#endif //EXAMPLE_PELK_H
+#endif

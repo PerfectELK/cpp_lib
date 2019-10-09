@@ -1,14 +1,16 @@
+
+#ifndef base_array_h
+#define base_array_h
+
 #include <iostream>
 #include <cstring>
 #include "./../var/variable.h"
 
-#ifndef EXAMPLE_BASE_ARRAY_H
-#define EXAMPLE_BASE_ARRAY_H
+
 
 namespace pelk {
 
     using namespace std;
-
 
     class base_array {
 
@@ -104,8 +106,11 @@ namespace pelk {
             return arr;
         }
 
-        void var_dump() {
+        void var_dump(int deep = 0) {
             for (int i = 0; i < this->length; i++) {
+                for(int j = 0; j < deep; j++){
+                    cout << "-";
+                }
                 cout << this->array[i] << endl;
             }
         }

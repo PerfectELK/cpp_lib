@@ -1,10 +1,13 @@
 //
 // Created by pelk on 03.09.2019.
 //
+
+#ifndef hash_table_h
+#define hash_table_h
+
 #include "./../array/base_array.h"
 
-#ifndef EXAMPLE_HASH_TABLE_H
-#define EXAMPLE_HASH_TABLE_H
+
 
 namespace pelk{
 
@@ -12,13 +15,13 @@ namespace pelk{
 
     private:
 
+    public:
+
         base_array *arr;
         base_array *keys;
 
 
         int compare_index;
-
-    public:
 
         hash_table(){
             arr = new base_array();
@@ -49,11 +52,14 @@ namespace pelk{
             }
         }
 
-        void var_dump(){
+        void var_dump(int deep = 0){
             for(int i = 0; i < this->keys->length; i++){
-                cout << "--";
+                for(int j = 0; j < deep; j++){
+                    cout << "-";
+                }
+                cout << "- ";
                 cout << this->keys->get(i);
-                cout << "-->";
+                cout << "-> ";
                 cout << this->arr->get(i) << endl;
             }
         }
