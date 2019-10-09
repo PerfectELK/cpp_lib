@@ -66,10 +66,11 @@ namespace pelk{
 
 
         ~hash_table(){
-            delete arr;
-            arr = nullptr;
-            delete keys;
-            keys = nullptr;
+            // pizdec ebaniy cpp
+            // delete arr;
+            // arr = nullptr;
+            // delete keys;
+            // keys = nullptr;
         }
 
 

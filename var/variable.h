@@ -134,7 +134,7 @@ namespace pelk{
             this->val.HashTable = V;
         }
 
-        var(hash_table);
+        var(hash_table V);
 
         var(){
             this->type = "empty";
