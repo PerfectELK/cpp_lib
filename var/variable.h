@@ -129,6 +129,8 @@ namespace pelk{
             this->val.Array = V;
         }
 
+        var(base_array);
+
         var(hash_table* V){
             this->type = "hash_table";
             this->val.HashTable = V;

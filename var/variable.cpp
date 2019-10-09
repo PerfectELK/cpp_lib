@@ -10,6 +10,13 @@ namespace pelk{
         this->val.HashTable = M;
     }
 
+    var::var(base_array V){
+        this->type = "array";
+        base_array *M = new base_array();
+        *M = V;
+        this->val.Array = M;
+    }
+
     var::operator hash_table(){
         return *this->val.HashTable;
     }

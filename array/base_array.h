@@ -48,7 +48,7 @@ namespace pelk {
         }
 
         ~base_array() {
-            this->destroy_arr(this->array, this->length);
+            //this->destroy_arr(this->array, this->length);
         }
 
         void add(var item) {
