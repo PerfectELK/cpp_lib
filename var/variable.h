@@ -343,22 +343,7 @@ namespace pelk{
 
 
         friend ostream& operator<<(ostream& out, var& V);
-//            if(V.type == "string"){
-//                if(V.val.String == nullptr){
-//                    return out;
-//                }
-//                out << *V.val.String;
-//            }else if(V.type == "integer"){
-//                out << (int) V;
-//            }else if(V.type == "long"){
-//                out << (long) V;
-//            }else if(V.type == "double"){
-//                out << (double long) V;
-//            }else if(V.type == "float") {
-//                out << (float) V;
-//            }
-//            return out;
-//        }
+
 
         friend istream& operator>>(istream &in, var& V){
 
