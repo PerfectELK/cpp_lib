@@ -64,7 +64,7 @@ namespace pelk{
         void var_dump(int deep = 0){
             for(int i = 0; i < this->keys->length; i++){
                 for(int j = 0; j < deep; j++){
-                    cout << "-";
+                    cout << "- ";
                 }
                 cout << "- ";
                 cout << this->keys->get(i);
