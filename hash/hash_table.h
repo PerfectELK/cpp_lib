@@ -28,6 +28,14 @@ namespace pelk{
             keys = new base_array();
         }
 
+        hash_table(hash_table &hash){
+            this->arr = new base_array();
+            this->keys = new base_array();
+            for(int i = 0; i < hash.keys->length; i++){
+                this->put(hash.keys->get(i), hash.arr->get(i));
+            }
+        }
+
         void put(var key, var value){
             this->keys->add(key);
             this->arr->add(value);
@@ -42,7 +50,8 @@ namespace pelk{
         }
 
         void removeAll(var key){
-            base_array indexes = this->keys->searchAll(key);
+            base_array indexes;
+            indexes = this->keys->searchAll(key);
             if(indexes.length > 0){
                 for(int i = 0; i <= indexes.length; i++){
                     var index = indexes.get(i);
@@ -67,10 +76,10 @@ namespace pelk{
 
         ~hash_table(){
             // pizdec ebaniy cpp
-            // delete arr;
-            // arr = nullptr;
-            // delete keys;
-            // keys = nullptr;
+            delete arr;
+            arr = nullptr;
+            delete keys;
+            keys = nullptr;
         }
 
 

@@ -142,6 +142,11 @@ namespace pelk{
             this->type = "empty";
         }
 
+        var(const var &v){
+            *this = v;
+        }
+
+
 
         ~var(){}
 

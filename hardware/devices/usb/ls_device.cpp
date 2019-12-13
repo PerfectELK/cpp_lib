@@ -1,6 +1,6 @@
-#include <libusb-1.0/libusb.h>
+#include<libusb-1.0/libusb.h>
 #include <cassert>
-#include "iostream"]
+#include "iostream"
 
 
 void ls_devices_pid_vid(){

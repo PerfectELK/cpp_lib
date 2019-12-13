@@ -47,8 +47,15 @@ namespace pelk {
             this->length = 0;
         }
 
+        base_array(base_array &arr){
+            this->length = arr.length;
+            for(int i = 0; i < arr.length; i++){
+                this->add(arr.get(i));
+            }
+        }
+
         ~base_array() {
-            //this->destroy_arr(this->array, this->length);
+            this->destroy_arr(this->array, this->length);
         }
 
         void add(var item) {
